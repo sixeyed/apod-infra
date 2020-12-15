@@ -1,0 +1,36 @@
+name: APOD Infra - Create AKS Cluster
+
+on:
+  workflow_dispatch:
+
+env:
+  RG_NAME: apod
+  AKS_NAME: apod-aks
+  ARGOCD_VERSION: v1.8.1
+
+jobs:
+  create-aks:
+    runs-on: ubuntu-latest
+    steps:
+
+    - name: Login
+      uses: azure/login@v1
+      with:
+        creds: ${{ secrets.AZURE_CREDENTIALS }}
+
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Create cluster
+      working-directory: scripts
+      run: ./aks-create.sh
+
+    - name: Deploy Argo
+      working-directory: scripts
+      run: chmod +x argocd-deploy.sh ./argocd-deploy.sh
+
+    - name: Sync APOD app 
+      working-directory: scripts
+      run: |
+        chmod +x argocd-create-apod-app.sh
+        ./argocd-create-apod-app.sh
