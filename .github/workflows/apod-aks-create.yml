@@ -23,14 +23,12 @@ jobs:
 
     - name: Create cluster
       working-directory: scripts
-      run: ./aks-create.sh
+      run: chmod +x aks-create.sh && ./aks-create.sh
 
     - name: Deploy Argo
       working-directory: scripts
-      run: chmod +x argocd-deploy.sh ./argocd-deploy.sh
+      run: chmod +x argocd-deploy.sh && ./argocd-deploy.sh
 
     - name: Sync APOD app 
       working-directory: scripts
-      run: |
-        chmod +x argocd-create-apod-app.sh
-        ./argocd-create-apod-app.sh
+      run: chmod +x argocd-create-apod-app.sh && ./argocd-create-apod-app.sh
