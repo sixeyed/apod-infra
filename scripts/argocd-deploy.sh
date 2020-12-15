@@ -13,7 +13,8 @@ sudo chmod +x /usr/local/bin/argocd
 
 echo "Configuring Argo CD with cluster: $AKS_NAME"
 PWD=$(kubectl get pods -n argocd -l app.kubernetes.io/name=argocd-server -o jsonpath='{.items[0].metadata.name}')
-argocd login localhost --insecure --username admin --password $PWD
+HOST=$(kubectl get svc -n argocd argocd-server -o jsonpath='{.status.loadBalancer.ingress[0].*}')
+argocd login $HOST --insecure --username admin --password $PWD
 argocd cluster add $AKS_NAME
 
 echo ''
