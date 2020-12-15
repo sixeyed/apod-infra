@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  RG_NAME: ecs-c3-01
-  AKS_NAME: ecs-c3-01-aks
+  RG_NAME: ecs-c3
+  AKS_NAME: ecs-c3-aks
   ARGOCD_VERSION: v1.8.1
 
 jobs:
@@ -24,6 +24,9 @@ jobs:
     - name: Create cluster
       working-directory: scripts
       run: chmod +x aks-create.sh && ./aks-create.sh
+      env:
+        AKS_SP_APP_ID: ${{ secrets.AKS_SP_APP_ID }}
+        AKS_SP_APP_PASSWORD: ${{ secrets.AKS_SP_APP_PASSWORD }}
 
     - name: Deploy Argo
       working-directory: scripts
