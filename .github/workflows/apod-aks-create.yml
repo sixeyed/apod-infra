@@ -2,10 +2,15 @@ name: APOD Infra - Create AKS Cluster
 
 on:
   workflow_dispatch:
+    inputs:
+      resource-group:
+        description: "Resource Group"
+        required: true
+        default: 'ecs-c3'
 
 env:
-  RG_NAME: ecs-c3-02
-  AKS_NAME: ecs-c3-02-aks
+  RG_NAME: ${{ github.event.inputs.tag }}
+  AKS_NAME: ${{ github.event.inputs.tag }}-aks
   ARGOCD_VERSION: v1.8.1
 
 jobs:
