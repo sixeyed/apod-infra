@@ -6,7 +6,7 @@ if [ $? != 0 ]; then
 	echo "Creating new resource group: $RG_NAME"
 	az group create --name $RG_NAME --location eastus > /dev/null
 else
-	echo "Using existing resource group: $$RG_NAME"
+	echo "Using existing resource group: $RG_NAME"
 fi
 
 # create cluster if not exists:
