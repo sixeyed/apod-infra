@@ -4,8 +4,8 @@ on:
   workflow_dispatch:
 
 env:
-  RG_NAME: ecs-c3
-  AKS_NAME: ecs-c3-aks
+  RG_NAME: ecs-c3-02
+  AKS_NAME: ecs-c3-02-aks
   ARGOCD_VERSION: v1.8.1
 
 jobs:
